@@ -6,10 +6,13 @@
 (add-to-list 'load-path my-modules-dir)
 (add-to-list 'load-path my-vendor-dir)
 
-(set-face-attribute 'default nil :height 80) ;; 10pt instead of default 12pt.
-
-
 (require 'cl)
+
+;; config changes made through the customize UI will be stored here
+(setq custom-file (concat my-root-dir "custom.el"))
+;; load this file
+(when (file-exists-p custom-file) (load custom-file))
+
 (require 'my-packages)
 (require 'my-editor)
 

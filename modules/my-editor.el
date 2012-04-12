@@ -16,6 +16,8 @@
 (setq tramp-backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq tramp-auto-save-directory temporary-file-directory)
 
-
+;; theme
+;;(load-theme 'twilight)
+(set-face-attribute 'default nil :height 80) ;; 10pt instead of default 12pt.
 
 (provide 'my-editor)
