@@ -51,7 +51,7 @@
 
 ;;;; Modes
 
-(electric-pair-mode t)
+;; (electric-pair-mode t)
 ;; (electric-indent-mode t)
 ;; (electric-layout-mode t)y
 (show-paren-mode t)
