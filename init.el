@@ -138,6 +138,13 @@
 (setq uniquify-buffer-name-style 'post-forward)
 
 ;; windmove
+;; shift-up is broken with xterm-256color?
+;; rebuild xterm-256color will fix it (http://forums.vandyke.com/showpost.php?p=26580&postcount=25):
+;; cd /usr/share/terminfo/x/
+;; cp xterm-256color{,.bak}
+;; infocmp xterm-256color > xterm.tmp
+;; tic xterm.tmp
+;; rm xterm.tmp
 (windmove-default-keybindings) ;; shift + arrowkeys
 (setq windmove-wrap-around t)
 
