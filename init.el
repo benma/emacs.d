@@ -228,3 +228,7 @@
 (define-key global-map [f6] 'ido-project-files)
 
 (require 'pyregex)
+
+(add-to-list 'load-path (concat my-modules-dir "pyregexp/"))
+(require 'pyregexp)
+(define-key global-map (kbd "C-c r") 'pyregexp-replace)
