@@ -8,7 +8,7 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar my-packages
-  '(expand-region ace-jump-mode haskell-mode python linum auto-complete yasnippet undo-tree dired+ ack-and-a-half deft volatile-highlights)
+  '(expand-region ace-jump-mode haskell-mode python linum auto-complete yasnippet undo-tree dired+ ack-and-a-half deft volatile-highlights magit)
   "A list of packages to ensure are installed at launch.")
 
 
