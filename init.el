@@ -5,6 +5,7 @@
 
 (add-to-list 'load-path my-modules-dir)
 (add-to-list 'load-path my-vendor-dir)
+(add-to-list 'custom-theme-load-path (concat my-root-dir "themes/"))
 
 (require 'cl)
 

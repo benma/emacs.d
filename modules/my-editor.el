@@ -17,7 +17,9 @@
 (setq tramp-auto-save-directory temporary-file-directory)
 
 ;; theme
-;;(load-theme 'twilight)
+(when (or (window-system) (daemonp))
+  (load-theme 'marko))
+
 (set-face-attribute 'default nil :height 80) ;; 10pt instead of default 12pt.
 
 (provide 'my-editor)
