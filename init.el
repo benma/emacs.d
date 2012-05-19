@@ -17,6 +17,11 @@
 (require 'my-packages)
 (require 'my-editor)
 
+(add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cl$" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.cu$" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+
 ;;;; Keybindings
 ;; use C-y in search to yank last killed text into the minibuffer
 (add-hook 'isearch-mode-hook 
@@ -173,12 +178,14 @@
 (setq ac-auto-show-menu 0.0)
 (global-auto-complete-mode t)
 ;; define sources
-(setq-default ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet))
-(add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
-(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-(add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
-(add-hook 'css-mode-hook 'ac-css-mode-setup)
-(add-hook 'auto-complete-mode-hook 'ac-common-setup)
+;; ac-source-yasnippet is broken. until it is fixed, use simple configuration
+(setq-default ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers))
+;; (setq-default ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet))
+;; (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+;; (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
+;; (add-hook 'css-mode-hook 'ac-css-mode-setup)
+;; (add-hook 'auto-complete-mode-hook 'ac-common-setup)
 ;; dirty fix for having AC everywhere
 (define-globalized-minor-mode real-global-auto-complete-mode
   auto-complete-mode (lambda ()
