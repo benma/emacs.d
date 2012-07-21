@@ -57,6 +57,8 @@
 
 ;;;; Modes
 
+(require 'my-latex)
+
 ;; (electric-pair-mode t)
 ;; (electric-indent-mode t)
 ;; (electric-layout-mode t)y
