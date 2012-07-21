@@ -9,10 +9,8 @@
 (setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")))
 (setq TeX-view-program-selection '((output-pdf "Evince")))
 
-;;(setq TeX-source-correlate-start-server t)
-;; (add-hook 'LaTeX-mode-hook '(lambda() (message "HU")
-;; 			      (TeX-source-correlate-mode)
-;; 			      (message "HU2")))
+;; (setq TeX-source-correlate-start-server t)
+;; (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 
 (add-hook 'LaTeX-mode-hook '(lambda() 
 			      (define-key LaTeX-mode-map (kbd "C-c C-c") '(lambda() 
