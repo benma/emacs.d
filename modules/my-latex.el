@@ -14,6 +14,11 @@
 ;; 			      (TeX-source-correlate-mode)
 ;; 			      (message "HU2")))
 
+(add-hook 'LaTeX-mode-hook '(lambda() 
+			      (define-key LaTeX-mode-map (kbd "C-c C-c") '(lambda() 
+									    (interactive) 
+									    (save-buffer)
+									    (TeX-command "LaTeX" 'TeX-master-file)))))
 ;; dbus for reverse search (ctrl-mouse1 in evince to jump to position in emacs)
 (require 'dbus)
 
