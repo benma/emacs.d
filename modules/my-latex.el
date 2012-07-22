@@ -9,7 +9,7 @@
 (setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")))
 (setq TeX-view-program-selection '((output-pdf "Evince")))
 
-;; (setq TeX-source-correlate-start-server t)
+(setq TeX-source-correlate-start-server t)
 ;; (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 
 (add-hook 'LaTeX-mode-hook '(lambda() 
@@ -17,6 +17,14 @@
 									    (interactive) 
 									    (save-buffer)
 									    (TeX-command "LaTeX" 'TeX-master-file)))))
+			
+(defadvice TeX-command (before TeX-view-correlate
+			       (name file &optional override-confirm))
+  "Turn on TeX-source-correlate-mode only for master file compilations, not for region compilations. Reason: TeX-view hangs when this mode is turned on for region-based view."
+  (when (string= name "LaTeX")
+    (progn
+      (TeX-source-correlate-mode (if (eq file 'TeX-region-file) -1 1)))))
+
 ;; dbus for reverse search (ctrl-mouse1 in evince to jump to position in emacs)
 (require 'dbus)
 
