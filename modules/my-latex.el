@@ -2,6 +2,9 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
+;; scale of latex preview images (default is derived from preview-scale-from-face which is too small.
+(setq preview-scale-function 1)
+
 (setq TeX-PDF-mode t)
 (setq TeX-output-view-style
       (quote
