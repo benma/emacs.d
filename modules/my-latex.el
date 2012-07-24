@@ -15,12 +15,15 @@
 (setq TeX-source-correlate-start-server t)
 ;; (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 
+;; use C-c = to access table of contents.
+(add-hook 'LaTeX-mode-hook 'reftex-mode)
+
 (add-hook 'LaTeX-mode-hook '(lambda() 
 			      (define-key LaTeX-mode-map (kbd "C-c C-c") '(lambda() 
 									    (interactive) 
 									    (save-buffer)
 									    (TeX-command "LaTeX" 'TeX-master-file)))))
-			
+
 (defadvice TeX-command (before TeX-view-correlate
 			       (name file &optional override-confirm))
   "Turn on TeX-source-correlate-mode only for master file compilations, not for region compilations. Reason: TeX-view hangs when this mode is turned on for region-based view."
