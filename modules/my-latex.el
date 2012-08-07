@@ -1,4 +1,6 @@
 
+(setq TeX-parse-self t) ;; makes auctex use style files like amsmath
+
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
