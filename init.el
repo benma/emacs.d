@@ -46,6 +46,10 @@
 
 (global-set-key "\M-k" 'kill-whole-line)
 
+(global-set-key "\C-c\c" 'compile)
+
+
+
 (defun whack-whitespace ()
   "Delete all white space from point to the next word."
   (interactive nil)
@@ -58,6 +62,13 @@
 ;;;; Modes
 
 (require 'my-latex)
+
+;; gnuplot
+(add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
+(add-hook 'gnuplot-mode-hook (lambda ()
+			       (unless (file-exists-p "Makefile")
+				 (set (make-local-variable 'compile-command)
+				      (concat "gnuplot " buffer-file-name)))))
 
 ;; (electric-pair-mode t)
 ;; (electric-indent-mode t)
