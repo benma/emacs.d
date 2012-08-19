@@ -184,6 +184,8 @@
 (key-chord-define-global "z." 'end-of-buffer)
 
 ;; yasnippet
+(add-hook 'term-mode-hook (lambda()
+			    (yas-minor-mode -1)))
 (require 'yasnippet)
 (add-to-list 'yas/snippet-dirs my-snippets-dir)
 (yas/global-mode 1)
