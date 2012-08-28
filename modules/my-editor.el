@@ -6,6 +6,10 @@
 (setq scroll-step 1)
 (defalias 'yes-or-no-p 'y-or-n-p) ;; short yes-or-now answers
 
+;; various
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
 ;; backups
 (setq buffer-auto-save-file-name nil)
 (setq make-backup-files nil) ;; do not make backup files (...~)

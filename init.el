@@ -255,3 +255,4 @@
 (add-to-list 'load-path (concat my-modules-dir "pyregexp/"))
 (require 'pyregexp)
 (define-key global-map (kbd "C-c r") 'pyregexp-replace)
+
