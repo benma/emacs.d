@@ -24,6 +24,7 @@
 
 ;;;; Keybindings
 ;; use C-y in search to yank last killed text into the minibuffer
+
 (add-hook 'isearch-mode-hook 
 	  (lambda ()
 	    (define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
@@ -38,11 +39,38 @@
 
 (define-key global-map [f3] 'query-replace)
 
-(define-key global-map [f4] (lambda ()
-  (interactive nil)
-  (ansi-term "/bin/bash")
-  ;;(term-line-mode)
-))
+
+(require 'term)
+;; kill term buffer on exit
+(defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
+  (if (memq (process-status proc) '(signal exit))
+      (let ((buffer (process-buffer proc)))
+        ad-do-it
+        (kill-buffer buffer))
+    ad-do-it))
+(ad-activate 'term-sentinel)
+
+(defun visit-ansi-term ()
+  "If the current buffer is:
+     1) an ansi-term, create a new one
+     2) not an ansi-term, switch to *ansi-term* if it exists, otherwise create new one."
+  (interactive)
+  (let ((is-term (string= "term-mode" major-mode))
+        (term-cmd "/bin/bash"))
+    (if is-term
+        (ansi-term term-cmd)
+      (if (get-buffer "*ansi-term*")
+          (if (term-check-proc "*ansi-term*")
+              (switch-to-buffer "*ansi-term*")
+            (ansi-term term-cmd))
+        (ansi-term term-cmd)))))
+(global-set-key (kbd "<f4>") 'visit-ansi-term)
+;; (define-key global-map [f4] (lambda ()
+;;   (interactive nil)
+;;   (ansi-term "/bin/bash")
+;;   ;;(term-line-mode)
+;; ))
+
 
 (global-set-key "\M-k" 'kill-whole-line)
 
@@ -54,8 +82,7 @@
   "Delete all white space from point to the next word."
   (interactive nil)
   (re-search-forward "[ \t\n]+" nil t)
-  (replace-match "" nil nil)
-)
+  (replace-match "" nil nil))
 (global-set-key "\C-l" 'whack-whitespace)
 
 
@@ -104,6 +131,7 @@
 ;; ace-jump-mode
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(setq ace-jump-mode-scope 'window)
 
 
 ;; html-mode
@@ -113,7 +141,7 @@
 
 ;; haskell-mode
 (add-hook 'haskell-mode-hook (lambda ()			       
-			       (subword-mode +1)
+;;			       (subword-mode +1)
 			       (turn-on-haskell-doc-mode)
 			       (turn-on-haskell-indentation)
 			       ))
@@ -258,4 +286,7 @@
 (add-to-list 'load-path (concat my-modules-dir "pyregexp/"))
 (require 'pyregexp)
 (define-key global-map (kbd "C-c r") 'pyregexp-replace)
-
+(define-key global-map (kbd "C-c q") 'pyregexp-query-replace)
+;; to use pyregexp isearch instead of the built-in regexp isearch, also include the following lines:
+(define-key esc-map (kbd "C-r") 'pyregexp-isearch-backward)
+(define-key esc-map (kbd "C-s") 'pyregexp-isearch-forward)
