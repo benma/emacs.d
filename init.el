@@ -22,73 +22,25 @@
 (add-to-list 'auto-mode-alist '("\\.cu$" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 
-;;;; Keybindings
-;; use C-y in search to yank last killed text into the minibuffer
-
-(add-hook 'isearch-mode-hook 
-	  (lambda ()
-	    (define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
-	    (define-key isearch-mode-map (kbd "C-y") 'isearch-yank-kill)
-	    )
-	  )
-
-;; use clipboard too
-(global-set-key "\C-w" 'clipboard-kill-region)
-(global-set-key "\M-w" 'clipboard-kill-ring-save)
-(global-set-key "\C-y" 'clipboard-yank)
-
-(define-key global-map [f3] 'query-replace)
-
-
-(require 'term)
-;; kill term buffer on exit
-(defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
-  (if (memq (process-status proc) '(signal exit))
-      (let ((buffer (process-buffer proc)))
-        ad-do-it
-        (kill-buffer buffer))
-    ad-do-it))
-(ad-activate 'term-sentinel)
-
-(defun visit-ansi-term ()
-  "If the current buffer is:
-     1) an ansi-term, create a new one
-     2) not an ansi-term, switch to *ansi-term* if it exists, otherwise create new one."
-  (interactive)
-  (let ((is-term (string= "term-mode" major-mode))
-        (term-cmd "/bin/bash"))
-    (if is-term
-        (ansi-term term-cmd)
-      (if (get-buffer "*ansi-term*")
-          (if (term-check-proc "*ansi-term*")
-              (switch-to-buffer "*ansi-term*")
-            (ansi-term term-cmd))
-        (ansi-term term-cmd)))))
-(global-set-key (kbd "<f4>") 'visit-ansi-term)
-;; (define-key global-map [f4] (lambda ()
-;;   (interactive nil)
-;;   (ansi-term "/bin/bash")
-;;   ;;(term-line-mode)
-;; ))
-
-
-(global-set-key "\M-k" 'kill-whole-line)
-
-(global-set-key "\C-c\c" 'compile)
-
-
-
-(defun whack-whitespace ()
-  "Delete all white space from point to the next word."
-  (interactive nil)
-  (re-search-forward "[ \t\n]+" nil t)
-  (replace-match "" nil nil))
-(global-set-key "\C-l" 'whack-whitespace)
-
-
 ;;;; Modes
 
-(require 'my-latex)
+;;(require 'my-latex)
+
+;; magit
+(global-set-key "\C-c\g" 'magit-status)
+;; full screen magit-status
+(require 'magit)
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defun magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (magit-quit-window)
+  (jump-to-register :magit-fullscreen))
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
 ;; gnuplot
 (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
@@ -120,6 +72,7 @@
 
 
 ;; ack
+(setq ack-and-a-half-prompt-for-directory t)
 (global-set-key (kbd "<f8>") 'ack-and-a-half)
 (global-set-key (kbd "<f9>") 'next-error)
 (global-set-key (kbd "S-<f9>") 'previous-error)
@@ -241,18 +194,18 @@
 
 ;; rectangle editing
 (require 'rect-mark)
-(global-set-key (kbd "C-t") 'rm-set-mark)
+;; (global-set-key (kbd "C-t") 'rm-set-mark)
 (global-set-key (kbd "C-x r C-w") 'rm-kill-region)
 (global-set-key (kbd "C-x r M-w") 'rm-kill-ring-save)
 
-;; cua-mode only for rectangle editing
-(setq cua-enable-cua-keys nil) ;; ctrl-enter -> rectangle editing, 
-;; (setq cua-highlight-region-shift-only t) ;; no transient mark mode
-;;(setq cua-toggle-set-mark nil) ;; original set-mark behavior, i.e. no transient-mark-mode
-(setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
-;;(setq cua-delete-selection nil)
-(global-set-key "\C-t" 'cua-set-rectangle-mark)
-(cua-mode t)
+;; ;; cua-mode only for rectangle editing
+;; (setq cua-enable-cua-keys nil) ;; ctrl-enter -> rectangle editing, 
+;; ;;(setq cua-highlight-region-shift-only t) ;; no transient mark mode
+;; ;;(setq cua-toggle-set-mark nil) ;; original set-mark behavior, i.e. no transient-mark-mode
+;; (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+;; ;;(setq cua-delete-selection nil)
+;; (global-set-key "\C-t" 'cua-set-rectangle-mark)
+;; (cua-mode t)
 
 ;; winner-mode
 ;; Use C-c <left> to restore previous frame configuration (e.g, restore after maximizing a buffer).
@@ -263,6 +216,16 @@
 
 ;; interactive buffers/files
 (ido-mode 1)
+;; go straight home by pressing ~ 
+(add-hook 'ido-setup-hook (lambda ()
+			    (define-key ido-file-completion-map
+			      (kbd "~")
+			      (lambda ()
+				(interactive)
+				(if (looking-back "/")
+				    (insert "~/")
+				  (call-interactively 'self-insert-command))))))
+
 
 ;; smex (M-x with ido)
 (require 'smex)
@@ -290,3 +253,75 @@
 ;; to use pyregexp isearch instead of the built-in regexp isearch, also include the following lines:
 (define-key esc-map (kbd "C-r") 'pyregexp-isearch-backward)
 (define-key esc-map (kbd "C-s") 'pyregexp-isearch-forward)
+
+
+
+;;;; Keybindings
+;; use C-y in search to yank last killed text into the minibuffer
+
+(add-hook 'isearch-mode-hook 
+	  (lambda ()
+	    (define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
+	    (define-key isearch-mode-map (kbd "C-y") 'isearch-yank-kill)
+	    )
+	  )
+
+;; use clipboard too
+(global-set-key "\C-w" 'clipboard-kill-region)
+(global-set-key "\M-w" 'clipboard-kill-ring-save)
+(global-set-key "\C-y" 'clipboard-yank)
+
+(define-key global-map [f3] 'query-replace)
+
+;; RET = newline-and-indent in programming modes
+(add-hook 'prog-mode-hook '(lambda ()
+			     (local-set-key (kbd "RET") 'newline-and-indent)))
+
+(require 'term)
+;; kill term buffer on exit
+(defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
+  (if (memq (process-status proc) '(signal exit))
+      (let ((buffer (process-buffer proc)))
+        ad-do-it
+        (kill-buffer buffer))
+    ad-do-it))
+(ad-activate 'term-sentinel)
+
+(defun visit-ansi-term ()
+  "If the current buffer is:
+     1) an ansi-term, create a new one
+     2) not an ansi-term, switch to *ansi-term* if it exists, otherwise create new one."
+  (interactive)
+  (let ((is-term (string= "term-mode" major-mode))
+        (term-cmd "/bin/bash"))
+    (if is-term
+        (ansi-term term-cmd)
+      (if (get-buffer "*ansi-term*")
+          (if (term-check-proc "*ansi-term*")
+              (switch-to-buffer "*ansi-term*")
+            (ansi-term term-cmd))
+        (ansi-term term-cmd))))
+  (term-set-escape-char ?\C-c))
+(global-set-key (kbd "<f4>") 'visit-ansi-term)
+;; (define-key global-map [f4] (lambda ()
+;;   (interactive nil)
+;;   (ansi-term "/bin/bash")
+;;   ;;(term-line-mode)
+;; ))
+
+
+(global-set-key "\M-k" 'kill-whole-line)
+(global-set-key "\C-c\c" 'compile)
+
+(defun whack-whitespace ()
+  "Delete all white space from point to the next word."
+  (interactive nil)
+  (re-search-forward "[ \t\n]+" nil t)
+  (replace-match "" nil nil))
+(global-set-key "\C-l" 'whack-whitespace)
+
+(defun open-line-below ()
+  (interactive)
+  (end-of-line)
+  (newline-and-indent))
+(global-set-key (kbd "<C-return>") 'open-line-below)
