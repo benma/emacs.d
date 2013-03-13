@@ -24,6 +24,9 @@
 
 ;;;; Modes
 
+(require 'xclip)
+(xclip-mode t)
+
 ;;(require 'my-latex)
 
 ;; magit
