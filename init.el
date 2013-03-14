@@ -24,7 +24,7 @@
 
 ;;;; Modes
 
-(require 'xclip)
+(require 'xclip) ;; requires xclip command line tool
 (xclip-mode t)
 
 ;;(require 'my-latex)
