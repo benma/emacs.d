@@ -145,10 +145,11 @@
 ;; windmove
 ;; shift-up is broken with xterm-256color?
 ;; rebuild xterm-256color will fix it (http://forums.vandyke.com/showpost.php?p=26580&postcount=25):
-;; cd /usr/share/terminfo/x/
-;; cp xterm-256color{,.bak}
+;; (maybe it is also in this folder: /usr/share/terminfo/x/)
+;; sudo cp /lib/terminfo/x/xterm-256color /lib/terminfo/x/xterm-256color.backup
 ;; infocmp xterm-256color > xterm.tmp
 ;; tic xterm.tmp
+;; sudo cp ~/.terminfo/x/xterm-256color /lib/terminfo/x/xterm-256color
 ;; rm xterm.tmp
 (windmove-default-keybindings) ;; shift + arrowkeys
 (setq windmove-wrap-around t)
