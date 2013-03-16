@@ -261,8 +261,18 @@
 
 
 ;;;; Keybindings
-;; use C-y in search to yank last killed text into the minibuffer
 
+
+;; in terminal, when TERM=screen-256color, shift-(left|right|...) etc do not work. bind them explicitely:
+(define-key input-decode-map "\e[1;2D" [S-left])  
+(define-key input-decode-map "\e[1;2C" [S-right])  
+(define-key input-decode-map "\e[1;2B" [S-down])  
+(define-key input-decode-map "\e[1;2A" [S-up])  
+(define-key input-decode-map "\e[1;2F" [S-end])  
+(define-key input-decode-map "\e[1;2H" [S-home])
+
+
+;; use C-y in search to yank last killed text into the minibuffer
 (add-hook 'isearch-mode-hook 
 	  (lambda ()
 	    (define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
