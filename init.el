@@ -154,6 +154,21 @@
 (windmove-default-keybindings) ;; shift + arrowkeys
 (setq windmove-wrap-around t)
 
+;; in terminal, when TERM=screen-256color, shift-(left|right|...) etc. do not work. bind them explicitely:
+(defadvice terminal-init-screen(around map-S-escape-sequences activate)
+  ;; defadvice needed so that it also works with emacsclient.
+  (define-key input-decode-map "\e[1;2D" [S-left])  
+  (define-key input-decode-map "\e[1;2C" [S-right])  
+  (define-key input-decode-map "\e[1;2B" [S-down])  
+  (define-key input-decode-map "\e[1;2A" [S-up])  
+  (define-key input-decode-map "\e[1;2F" [S-end])  
+  (define-key input-decode-map "\e[1;2H" [S-home])
+  ad-do-it
+  )
+
+
+
+
 ;; execute commands by hitting two keys simultaneously.
 (require 'key-chord)
 (key-chord-mode 1)
@@ -261,21 +276,6 @@
 
 
 ;;;; Keybindings
-
-
-;; in terminal, when TERM=screen-256color, shift-(left|right|...) etc. do not work. bind them explicitely:
-(defadvice terminal-init-screen(around map-S-escape-sequences activate)
-  ;; defadvice needed so that it also works with emacsclient.
-  (define-key input-decode-map "\e[1;2D" [S-left])  
-  (define-key input-decode-map "\e[1;2C" [S-right])  
-  (define-key input-decode-map "\e[1;2B" [S-down])  
-  (define-key input-decode-map "\e[1;2A" [S-up])  
-  (define-key input-decode-map "\e[1;2F" [S-end])  
-  (define-key input-decode-map "\e[1;2H" [S-home])
-  ad-do-it
-  )
-(add-hook 'server-visit-hook 'fix-shift-bindings) ;; execute each time emacsclient is run
-;;(fix-shift-bindings)
 
 ;; use C-y in search to yank last killed text into the minibuffer
 (add-hook 'isearch-mode-hook 
