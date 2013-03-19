@@ -163,6 +163,10 @@
   (define-key input-decode-map "\e[1;2A" [S-up])  
   (define-key input-decode-map "\e[1;2F" [S-end])  
   (define-key input-decode-map "\e[1;2H" [S-home])
+  (define-key input-decode-map "\e[1;5D" [C-left])  
+  (define-key input-decode-map "\e[1;5C" [C-right])  
+  (define-key input-decode-map "\e[1;5B" [C-down])  
+  (define-key input-decode-map "\e[1;5A" [C-up])  
   ad-do-it
   )
 
