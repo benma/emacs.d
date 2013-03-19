@@ -77,6 +77,11 @@
 ;; ack
 (setq ack-and-a-half-prompt-for-directory t)
 (global-set-key (kbd "<f8>") 'ack-and-a-half)
+;; we don't want to start in root directoy by default,
+;; but in directory of current file
+;; todo: make two bindings, one with default directory=root directory and
+;; one with default directory=current directory.
+(setq ack-and-a-half-root-directory-functions nil)
 (global-set-key (kbd "<f9>") 'next-error)
 (global-set-key (kbd "S-<f9>") 'previous-error)
 
@@ -169,9 +174,12 @@
   (define-key input-decode-map "\e[1;5A" [C-up])  
   ad-do-it
   )
-
-
-
+;; same for some keys when TERM=xterm-256color
+(defadvice terminal-init-xterm(around map-S-escape-sequences activate)
+  ;; defadvice needed so that it also works with emacsclient.
+  (define-key input-decode-map "\e[4~" [end])
+  ad-do-it
+  )
 
 ;; execute commands by hitting two keys simultaneously.
 (require 'key-chord)

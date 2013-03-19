@@ -14,7 +14,8 @@
 (setq buffer-auto-save-file-name nil)
 (setq make-backup-files nil) ;; do not make backup files (...~)
 (setq auto-save-default nil) ;; do not make auto save files (#...#)
-;; .#file files still created, maybe this will work
+;; .#file files still created (lockfiles), maybe this will work
+;; (setq create-lockfiles nil) --> disables refresh of externally modifed files
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 (setq tramp-backup-directory-alist `((".*" . ,temporary-file-directory)))
