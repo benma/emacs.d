@@ -237,6 +237,7 @@
 ;; ;;(setq cua-delete-selection nil)
 ;; (global-set-key "\C-t" 'cua-set-rectangle-mark)
 ;; (cua-mode t)
+(delete-selection-mode t)
 
 ;; winner-mode
 ;; Use C-c <left> to restore previous frame configuration (e.g, restore after maximizing a buffer).
