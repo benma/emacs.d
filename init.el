@@ -59,21 +59,6 @@
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
-;; re-builder
-(require 're-builder)
-(setq reb-re-syntax 'string)
-(defun my-reb-copy ()
-  "Copy current RE into the kill ring for later insertion. Remove quotes and double backslashes "
-  (interactive)
-  (reb-update-regexp)
-  (let* ((re (with-output-to-string
-	       (print (reb-target-binding reb-regexp))))
-	 (str (substring re 2 (- (length re) 2))))
-    (kill-new (replace-regexp-in-string "\\\\\\\\" "\\\\" str)))
-  (message "Regexp copied to kill-ring"))
-(define-key reb-mode-map "\C-c\C-w" 'my-reb-copy)
-
-
 ;; ack
 (setq ack-and-a-half-prompt-for-directory t)
 (global-set-key (kbd "<f8>") 'ack-and-a-half)

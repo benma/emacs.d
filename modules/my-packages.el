@@ -10,7 +10,8 @@
 (defvar my-packages
   '(expand-region 
     ace-jump-mode 
-    haskell-mode 
+    haskell-mode
+    key-chord
     python 
     linum 
     auto-complete 
