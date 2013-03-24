@@ -290,6 +290,11 @@
 
 ;;;; Keybindings
 
+;; multiple-cursors
+(require 'multiple-cursors)
+(global-set-key (kbd "C-c m l") 'mc/edit-lines)
+(global-set-key (kbd "C-c m n") 'mc/mark-next-like-this)
+
 ;; use C-y in search to yank last killed text into the minibuffer
 (add-hook 'isearch-mode-hook 
 	  (lambda ()
