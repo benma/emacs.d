@@ -26,7 +26,8 @@
     smex 
     back-button 
     xclip
-    multiple-cursors)
+    multiple-cursors
+    projectile)
   "A list of packages to ensure are installed at launch.")
 
 

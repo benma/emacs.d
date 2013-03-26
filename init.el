@@ -259,10 +259,6 @@
 (require 'back-button)
 (back-button-mode 1)
 
-;; quick find any file in project using ido
-(require 'ido-project)
-(define-key global-map [f6] 'ido-project-files)
-
 (add-to-list 'load-path (concat my-modules-dir "pyregexp/"))
 (require 'pyregexp)
 (define-key global-map (kbd "C-c r") 'pyregexp-replace)
