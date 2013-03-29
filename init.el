@@ -292,8 +292,9 @@
 (define-key global-map [f3] 'query-replace)
 
 ;; RET = newline-and-indent in programming modes
-(add-hook 'prog-mode-hook '(lambda ()
-			     (local-set-key (kbd "RET") 'newline-and-indent)))
+(electric-indent-mode t)
+;; (add-hook 'prog-mode-hook '(lambda ()
+;; 			     (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (require 'term)
 ;; kill term buffer on exit
