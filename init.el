@@ -335,8 +335,8 @@
 (defun whack-whitespace ()
   "Delete all white space from point to the next word."
   (interactive nil)
-  (re-search-forward "[ \t\n]+" nil t)
-  (replace-match "" nil nil))
+  (when (re-search-forward "[ \t\n]+" nil t)
+    (replace-match "" nil nil)))
 (global-set-key "\C-l" 'whack-whitespace)
 
 (defun open-line-below ()
@@ -344,3 +344,10 @@
   (end-of-line)
   (newline-and-indent))
 (global-set-key (kbd "<C-return>") 'open-line-below)
+
+(defun django-pdb ()
+  (interactive)
+  (let ((manage-file (concat (projectile-project-root) "manage.py")))
+    (if (file-exists-p manage-file)
+	(pdb (concat manage-file " runserver --noreload"))
+      (error "You are not in a Django project"))))
