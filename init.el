@@ -280,9 +280,7 @@
 (add-hook 'isearch-mode-hook 
 	  (lambda ()
 	    (define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
-	    (define-key isearch-mode-map (kbd "C-y") 'isearch-yank-kill)
-	    )
-	  )
+	    (define-key isearch-mode-map (kbd "C-y") 'isearch-yank-kill)))
 
 ;; use clipboard too
 (global-set-key "\C-w" 'clipboard-kill-region)
@@ -292,9 +290,9 @@
 (define-key global-map [f3] 'query-replace)
 
 ;; RET = newline-and-indent in programming modes
-(electric-indent-mode t)
-;; (add-hook 'prog-mode-hook '(lambda ()
-;; 			     (local-set-key (kbd "RET") 'newline-and-indent)))
+;; (electric-indent-mode t) ;; weird, moves current line to right in python-mode...
+(add-hook 'prog-mode-hook '(lambda ()
+			     (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (require 'term)
 ;; kill term buffer on exit
