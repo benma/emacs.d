@@ -259,13 +259,13 @@
 (require 'back-button)
 (back-button-mode 1)
 
-(add-to-list 'load-path (concat my-modules-dir "pyregexp/"))
-(require 'pyregexp)
-(define-key global-map (kbd "C-c r") 'pyregexp-replace)
-(define-key global-map (kbd "C-c q") 'pyregexp-query-replace)
-;; to use pyregexp isearch instead of the built-in regexp isearch, also include the following lines:
-(define-key esc-map (kbd "C-r") 'pyregexp-isearch-backward)
-(define-key esc-map (kbd "C-s") 'pyregexp-isearch-forward)
+(add-to-list 'load-path (concat my-modules-dir "visual-regexp/"))
+(add-to-list 'load-path (concat my-modules-dir "visual-regexp-steroids/"))
+(require 'visual-regexp-steroids)
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+(define-key esc-map (kbd "C-r") 'vr/isearch-backward)
+(define-key esc-map (kbd "C-s") 'vr/isearch-forward)
 
 
 
