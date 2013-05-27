@@ -262,12 +262,17 @@
 (add-to-list 'load-path (concat my-modules-dir "visual-regexp/"))
 (add-to-list 'load-path (concat my-modules-dir "visual-regexp-steroids/"))
 (require 'visual-regexp-steroids)
-(define-key global-map (kbd "C-c r") 'vr/replace)
-(define-key global-map (kbd "C-c q") 'vr/query-replace)
+
+(define-key global-map (kbd "C-c r") '(lambda (arg) ;; choose visual regexp engine with prefix arg
+					(interactive "P")
+					(let ((vr/engine (if arg 'python 'emacs)))
+					  (call-interactively 'vr/replace))))
+(define-key global-map (kbd "C-c q") '(lambda (arg) ;; choose visual regexp engine with prefix arg
+					(interactive "P")
+					(let ((vr/engine (if arg 'python 'emacs)))
+					  (call-interactively 'vr/query-replace))))
 (define-key esc-map (kbd "C-r") 'vr/isearch-backward)
 (define-key esc-map (kbd "C-s") 'vr/isearch-forward)
-
-
 
 ;;;; Keybindings
 
