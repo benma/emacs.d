@@ -1,6 +1,6 @@
 [submodule "modules/pyregexp"]
 	path = modules/pyregexp
-	url = git@github.com:benma/pyregexp.git
+	url = https://github.com/benma/pyregexp.git
 [submodule "modules/visual-regexp"]
 	path = modules/visual-regexp
 	url = https://github.com/benma/visual-regexp.git
