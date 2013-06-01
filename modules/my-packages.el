@@ -27,7 +27,8 @@
     back-button 
     xclip
     multiple-cursors
-    projectile)
+    projectile
+    flx)
   "A list of packages to ensure are installed at launch.")
 
 
