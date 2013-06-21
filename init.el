@@ -27,6 +27,12 @@
 (require 'xclip) ;; requires xclip command line tool
 (xclip-mode t)
 
+;; po-mode
+;; Do not replace my header only because PO-Revision-Date is missing!
+(defadvice po-check-file-header (around no-po-check-file-header activate)
+  ;; do nothing
+  )
+
 ;;(require 'my-latex)
 
 ;; magit
