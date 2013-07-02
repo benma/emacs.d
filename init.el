@@ -73,6 +73,8 @@
 ;; todo: make two bindings, one with default directory=root directory and
 ;; one with default directory=current directory.
 (setq ack-and-a-half-root-directory-functions nil)
+;; skip migrations folders in django projects
+(setq ack-and-a-half-arguments '("--ignore-dir migrations"))
 (global-set-key (kbd "<f9>") 'next-error)
 (global-set-key (kbd "S-<f9>") 'previous-error)
 
