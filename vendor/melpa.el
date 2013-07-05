@@ -81,10 +81,13 @@ ARCHIVE is the string name of the package archive."
   "Add filtering of available packages using `package-filter-function',
 if non-nil."
   (when (and package-filter-function
-             (funcall package-filter-function
-                      (car package)
-                      (package-desc-vers (cdr package))
-                      archive))
+	     (funcall package-filter-function
+		      (car package)
+		      (funcall (if (fboundp 'package-desc-version)
+				   'package--ac-desc-version
+				 'package-desc-vers)
+			       (cdr package))
+		      archive)) 
     ad-do-it))
 
 
