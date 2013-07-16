@@ -24,7 +24,8 @@
 ;; theme
 ;; (when (or (window-system) (daemonp))
 ;;   (load-theme 'marko))
-
+(load-theme 'zenburn)
+(load-theme 'zenburn-modeline-fix)
 (set-face-attribute 'default nil :height 80) ;; 10pt instead of default 12pt.
 
 (provide 'my-editor)
