@@ -28,7 +28,7 @@
     xclip
     multiple-cursors
     projectile
-    flx)
+    flx-ido)
   "A list of packages to ensure are installed at launch.")
 
 

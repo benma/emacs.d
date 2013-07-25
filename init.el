@@ -240,8 +240,9 @@
 (require 'my-projects)
 
 ;; interactive buffers/files
-(ido-mode 1)
-(flx-ido-mode 1)
+(ido-mode)
+(ido-everywhere 1)
+ (flx-ido-mode 1)
 ;; go straight home by pressing ~ 
 (add-hook 'ido-setup-hook (lambda ()
 			    (define-key ido-file-completion-map
