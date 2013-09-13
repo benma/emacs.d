@@ -1,8 +1,8 @@
 (require 'package)
 (require 'melpa)
 
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
+				 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
@@ -21,7 +21,7 @@
     ack-and-a-half 
     deft 
     volatile-highlights 
-    magit 
+    ;; magit 
     gnuplot 
     smex 
     back-button 
