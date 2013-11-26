@@ -67,8 +67,14 @@
 (volatile-highlights-mode t)
 
 ;; ack
+(require 'ack-and-a-half)
 (setq ack-and-a-half-prompt-for-directory t)
 (global-set-key (kbd "<f8>") 'ack-and-a-half)
+
+(require 'grep-a-lot)
+(grep-a-lot-setup-keys)
+(require 'ack-and-a-half-a-lot)
+  
 ;; we don't want to start in root directoy by default,
 ;; but in directory of current file
 ;; todo: make two bindings, one with default directory=root directory and
@@ -132,10 +138,10 @@
   (replace-string "ö" "\\xf6" nil p1 p2)
 )
 
-;; linum
-(require 'linum)
-(global-linum-mode t)
-(setq linum-format "%2d ")
+;; ;; linum
+;; (require 'linum)
+;; (global-linum-mode t)
+;; (setq linum-format "%2d ")
 
 ;; uniquify
 (require 'uniquify) ;; uniquifies identically-named buffers by appending part of the path.
