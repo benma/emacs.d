@@ -24,6 +24,7 @@
 
 ;;;; Modes
 
+
 (require 'xclip) ;; requires xclip command line tool
 (xclip-mode t)
 
@@ -126,17 +127,12 @@
 
 ;; python
 (require 'python)
-;; (add-hook 'python-mode-hook (lambda ()
-;; 			      ;; "_" is a delimiter in words (when moving C-left/right
-;; 			      (modify-syntax-entry ?_ "_" py-mode-syntax-table)
-;; 			      ))
-(defun python-fix-umlaut (p1 p2)
-  "Convert umlaute to unicode escapes"
-  (interactive "r")
-  (replace-string "ü" "\\xfc" nil p1 p2)
-  (replace-string "ä" "\\xe4" nil p1 p2)
-  (replace-string "ö" "\\xf6" nil p1 p2)
-)
+(add-hook 'python-mode-hook (lambda ()
+			      ;; "_" is a delimiter in words (when moving C-left/right
+			      ;; (modify-syntax-entry ?_ "_" py-mode-syntax-table)
+			      
+			      ;; disable electric indent mode, it indents the wrong line in python mode
+			      (electric-indent-mode -1)))
 
 ;; ;; linum
 ;; (require 'linum)

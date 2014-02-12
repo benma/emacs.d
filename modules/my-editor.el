@@ -10,6 +10,10 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+;; Emacs will run garbage collection after `gc-cons-threshold' bytes of consing. The default value is 800,000 bytes, or ~ 0.7 MiB. By increasing to 10 MiB we reduce the number of pauses due to garbage collection.
+;; Found here: http://www.wilfred.me.uk/.emacs.d/init.html#sec-3-21
+(setq gc-cons-threshold (* 10 1024 1024))
+
 ;; backups
 (setq buffer-auto-save-file-name nil)
 (setq make-backup-files nil) ;; do not make backup files (...~)
