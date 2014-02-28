@@ -37,7 +37,7 @@
 ;;(require 'my-latex)
 
 ;; magit
-(add-to-list 'load-path (concat my-vendor-dir "magit/"))
+;; (add-to-list 'load-path (concat my-vendor-dir "magit/"))
 (global-set-key "\C-c\g" 'magit-status)
 ;; full screen magit-status
 (require 'magit)
