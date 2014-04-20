@@ -179,6 +179,10 @@
 
 ;; execute commands by hitting two keys simultaneously.
 (require 'key-chord)
+;; reduce delay times s.t. you don't accidentally trigger a key-chord
+;; during normal typing.
+(setq key-chord-two-keys-delay .015
+      key-chord-one-key-delay .020)
 (key-chord-mode 1)
 (key-chord-define-global "§1" 'keyboard-escape-quit)
 (key-chord-define-global "j1" 'delete-other-windows)
