@@ -10,7 +10,7 @@
 (defvar my-packages
   '(expand-region 
     ace-jump-mode 
-    haskell-mode
+    haskell-mode ghc shm company-ghc
     key-chord
     python 
     linum 
