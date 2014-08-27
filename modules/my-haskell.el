@@ -1,5 +1,5 @@
-(require 'w3m)
-(require 'json)
+(require 'hayoo)
+
 
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
@@ -54,49 +54,4 @@
      (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 
 
-(defun my-hayoo-show (query)
-  ;; quick and dirty hayoo interface
-  (url-retrieve
-   (format "http://hayoo.fh-wedel.de/json/?query=%s" query)
-   (lambda (status)
-     (message "%s" status)
-     (re-search-forward "\r?\n\r?\n")
-     (let* ((res (json-read-from-string (buffer-substring (point) (point-max))))
-            (count (cdr (assoc 'count res)))
-            (results (cdr (assoc 'result res))))
-       (erase-buffer)
-       (dotimes (i count)
-         (let* ((result (elt results i))
-                (result-type (cdr (assoc 'resultType result)))
-                (result-name (cdr (assoc 'resultName result)))
-                (result-package (cdr (assoc 'resultPackage result)))
-                (result-uri (cdr (assoc 'resultUri result)))
-                (result-description (cdr (assoc 'resultDescription result)))
-                (result-signature (cdr (assoc 'resultSignature result)))
-                (result-hackage (format "http://hackage.haskell.org/package/%s" result-package)))
-           (cond ((equal result-type "function")
-                  (insert (format "<a href=\"%s/../../\">%s</a>/" result-uri result-package))
-                  (insert (format "<a href=\"%s\">%s</a> :: %s<br/>" result-uri result-name result-signature))
-                  (insert result-description)
-                  (insert "<br/><br/>"))))))
-
-     ;; display the above html in w3m
-     (let ((browse-url-browser-function 'w3m-browse-url))
-       (browse-url-of-buffer)))
-   nil t t))
-
-;;;###autoload
-(defun my-hayoo (query)
-  "Do a Hayoo search for QUERY."
-  (interactive
-   (let ((def (haskell-ident-at-point)))
-     (if (and def (symbolp def)) (setq def (symbol-name def)))
-     (list (read-string (if def
-                            (format "Hayoo query (default %s): " def)
-                          "Hayoo query: ")
-                        nil nil def))))
-  (my-hayoo-show query))
-
 (provide 'my-haskell)
-
-(my-hayoo "callTemplate")
