@@ -76,7 +76,7 @@
                                 (elt result-modules 0)
                               "")
 
-                          (if result-signature
+                          (if (and result-signature (not (string= "" result-signature)))
                               (format "%s :: %s" result-name result-signature)
                             result-name)))
                  entries)))
