@@ -1,6 +1,5 @@
 (require 'tabulated-list)
 (require 'json)
-
 (defvar hayoo--results)
 
 (defun hayoo--query-and-list-results (query)
@@ -54,36 +53,32 @@
       (setq tabulated-list-sort-key nil)
       (let ((count (length hayoo--results))
             entries)
-        
+
         (dotimes (i count)
-         (let* ((result (elt results i))
-                (result-type (cdr (assoc 'resultType result)))
-                (result-name (cdr (assoc 'resultName result)))
-                (result-package (cdr (assoc 'resultPackage result)))
-                (result-modules (cdr (assoc 'resultModules result)))
-                (result-uri (cdr (assoc 'resultUri result)))
-                (result-description (cdr (assoc 'resultDescription result)))
-                (result-signature (cdr (assoc 'resultSignature result)))
-                (result-hackage (format "http://hackage.haskell.org/package/%s" result-package)))
-           (push (list i (vector
-                          result-type
-                          
-                          (cond ((equal result-type "package")
-                                 result-name)
-                                (t result-package))
+          (let* ((result (elt hayoo--results i))
+                 (result-type (cdr (assoc 'resultType result)))
+                 (result-name (cdr (assoc 'resultName result)))
+                 (result-package (cdr (assoc 'resultPackage result)))
+                 (result-modules (cdr (assoc 'resultModules result)))
+                 (result-signature (cdr (assoc 'resultSignature result))))
+            (push (list i (vector
+                           result-type
 
-                          (if result-modules
-                                (elt result-modules 0)
-                              "")
+                           (cond ((equal result-type "package")
+                                  result-name)
+                                 (t result-package))
 
-                          (if (and result-signature (not (string= "" result-signature)))
-                              (format "%s :: %s" result-name result-signature)
-                            result-name)))
-                 entries)))
+                           (if result-modules
+                               (elt result-modules 0)
+                             "")
+
+                           (if (and result-signature (not (string= "" result-signature)))
+                               (format "%s :: %s" result-name result-signature)
+                             result-name)))
+                  entries)))
         (setq tabulated-list-entries (nreverse entries)))
       (tabulated-list-init-header)
-      (tabulated-list-print)
-      )
+      (tabulated-list-print))
     buffer))
 
 (defun hayoo-query (query)
