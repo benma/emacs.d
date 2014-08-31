@@ -1,5 +1,6 @@
-(require 'hayoo)
+(add-to-list 'load-path (concat my-modules-dir "hayoo/"))
 
+(require 'hayoo)
 
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
@@ -13,8 +14,7 @@
 			       (turn-on-haskell-doc-mode)
 			       (turn-on-haskell-indentation)
 			       ;;(structured-haskell-mode)
-			       (ghc-init)
-			       ))
+			       (ghc-init)))
 
 (require 'company)
 ;;(add-hook 'haskell-mode-hook 'company-mode)
