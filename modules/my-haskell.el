@@ -1,5 +1,6 @@
-(require 'hayoo)
+(add-to-list 'load-path (concat my-modules-dir "hayoo/"))
 
+(require 'hayoo)
 
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
@@ -13,8 +14,7 @@
 			       (turn-on-haskell-doc-mode)
 			       (turn-on-haskell-indentation)
 			       ;;(structured-haskell-mode)
-			       (ghc-init)
-			       ))
+			       (ghc-init)))
 
 (require 'company)
 ;;(add-hook 'haskell-mode-hook 'company-mode)
@@ -42,9 +42,7 @@
      (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
      (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
      (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
-     (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space))
-     
-     )
+     (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 
 (eval-after-load 'haskell-cabal
   '(progn
