@@ -9,6 +9,7 @@
 
 (require 'cl)
 
+(setq debug-on-error t)
 ;; config changes made through the customize UI will be stored here
 (setq custom-file (concat my-root-dir "custom.el"))
 ;; load this file
@@ -58,7 +59,7 @@
 (defun magit-quit-session ()
   "Restores the previous window configuration and kills the magit buffer"
   (interactive)
-  (magit-quit-window)
+  (magit-mode-quit-window)
   (jump-to-register :magit-fullscreen))
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
@@ -227,6 +228,18 @@
 			   (auto-complete-mode 1))
 		       ))
 (real-global-auto-complete-mode t)
+
+;; erc
+(add-hook 'erc-mode-hook (lambda ()
+                           (auto-complete-mode -1)))
+(setq erc-nick "benma")
+;; find password in ~/.authinfo
+(setq erc-prompt-for-password nil)
+;; enable channel autojoin
+(require 'erc-join)
+(erc-autojoin-enable)
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "#haskell" "#snapframework")))
 
 ;; rectangle editing
 (require 'rect-mark)
