@@ -7,6 +7,10 @@
 (add-to-list 'load-path my-vendor-dir)
 (add-to-list 'custom-theme-load-path (concat my-root-dir "themes/"))
 
+(setenv "PATH" (concat "~/bin" (getenv "PATH")))
+(add-to-list 'exec-path "~/bin")
+
+
 (require 'cl)
 
 (setq debug-on-error t)
@@ -95,6 +99,13 @@
 (setq ack-and-a-half-arguments '("--ignore-dir migrations"))
 (global-set-key (kbd "<f9>") 'next-error)
 (global-set-key (kbd "S-<f9>") 'previous-error)
+
+;; tern / js
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
 
 ;; expand-region
 (require 'expand-region)
@@ -267,7 +278,8 @@
 ;; interactive buffers/files
 (ido-mode)
 (ido-everywhere 1)
- (flx-ido-mode 1)
+;;(flx-ido-mode 1)
+
 ;; go straight home by pressing ~ 
 (add-hook 'ido-setup-hook (lambda ()
 			    (define-key ido-file-completion-map

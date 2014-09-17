@@ -21,7 +21,7 @@
     ack-and-a-half 
     deft 
     volatile-highlights 
-    ;; magit 
+    magit 
     gnuplot 
     smex 
     back-button 
@@ -29,7 +29,9 @@
     multiple-cursors
     projectile
     flx-ido
-    grep-a-lot)
+    grep-a-lot
+    tern
+    tern-auto-complete)
   "A list of packages to ensure are installed at launch.")
 
 
