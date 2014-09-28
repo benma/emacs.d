@@ -11,7 +11,8 @@
 (put 'upcase-region 'disabled nil)
 
 ;; no tabs, only spaces
-(set-default 'indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 
 ;; Emacs will run garbage collection after `gc-cons-threshold' bytes of consing. The default value is 800,000 bytes, or ~ 0.7 MiB. By increasing to 10 MiB we reduce the number of pauses due to garbage collection.
 ;; Found here: http://www.wilfred.me.uk/.emacs.d/init.html#sec-3-21

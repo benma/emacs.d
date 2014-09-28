@@ -13,7 +13,6 @@
 
 (require 'cl)
 
-(setq debug-on-error t)
 ;; config changes made through the customize UI will be stored here
 (setq custom-file (concat my-root-dir "custom.el"))
 ;; load this file
