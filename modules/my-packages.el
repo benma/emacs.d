@@ -12,7 +12,8 @@
     ace-jump-mode 
     haskell-mode ghc shm company-ghc
     key-chord
-    python 
+    zenburn-theme
+    evil
     linum 
     auto-complete 
     yasnippet 
@@ -21,7 +22,8 @@
     ack-and-a-half 
     deft 
     volatile-highlights 
-    magit 
+    magit
+    git-link
     gnuplot 
     smex 
     back-button 

@@ -28,6 +28,24 @@
 
 ;;;; Modes
 
+;; ggtags (gnu global)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1)
+              (ggtags-navigation-mode -1))))
+
+;; c, c++
+(require 'cc-mode)
+(c-add-style "my-c-style" 
+	     '("gnu"
+	       (indent-tabs-mode . nil)        ; use spaces rather than tabs
+	       (c-basic-offset . 4)            ; indent by four spaces
+	       (c-offsets-alist . ((inline-open . 0)  ; custom indentation rules
+				   (brace-list-open . 0)
+				   (statement-case-open . +)))))
+(add-hook 'c++-mode-hook (lambda ()
+                         (c-set-style "my-c-style")))
 
 ;; w3m
 
@@ -240,16 +258,21 @@
 (real-global-auto-complete-mode t)
 
 ;; erc
+(require 'erc)
 (add-hook 'erc-mode-hook (lambda ()
                            (auto-complete-mode -1)))
 (setq erc-nick "benma")
+(setq erc-user-full-name "Marko Bencun")
+
 ;; find password in ~/.authinfo
 (setq erc-prompt-for-password nil)
+
+(add-to-list 'erc-modules 'notifications)
 ;; enable channel autojoin
 (require 'erc-join)
 (erc-autojoin-enable)
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#haskell" "#snapframework")))
+      '(("freenode.net" "#monetas-dev" "#opentransactions")))
 
 ;; rectangle editing
 (require 'rect-mark)
