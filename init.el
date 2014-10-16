@@ -28,6 +28,10 @@
 
 ;;;; Modes
 
+;; fill column indicator
+(require 'fill-column-indicator)
+(setq fci-rule-color "red")
+
 ;; ggtags (gnu global)
 (add-hook 'c-mode-common-hook
           (lambda ()
@@ -45,7 +49,10 @@
 				   (brace-list-open . 0)
 				   (statement-case-open . +)))))
 (add-hook 'c++-mode-hook (lambda ()
-                         (c-set-style "my-c-style")))
+                         (c-set-style "my-c-style")
+                         ;; show col 80 visually
+                         (setq fill-column 80)
+                         (fci-mode)))
 
 ;; w3m
 
@@ -409,3 +416,4 @@
     (if (file-exists-p manage-file)
 	(pdb (concat manage-file " runserver --noreload"))
       (error "You are not in a Django project"))))
+

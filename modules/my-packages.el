@@ -12,6 +12,7 @@
     visual-regexp
     visual-regexp-steroids
     expand-region 
+    ggtags
     ace-jump-mode 
     haskell-mode ghc shm company-ghc
     key-chord
