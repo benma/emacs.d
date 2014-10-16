@@ -8,7 +8,10 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar my-packages
-  '(expand-region 
+  '(hayoo
+    visual-regexp
+    visual-regexp-steroids
+    expand-region 
     ace-jump-mode 
     haskell-mode ghc shm company-ghc
     key-chord
