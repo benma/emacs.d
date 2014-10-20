@@ -372,28 +372,16 @@
     ad-do-it))
 (ad-activate 'term-sentinel)
 
-(defun visit-ansi-term ()
-  "If the current buffer is:
-     1) an ansi-term, create a new one
-     2) not an ansi-term, switch to *ansi-term* if it exists, otherwise create new one."
-  (interactive)
-  (let ((is-term (string= "term-mode" major-mode))
-        (term-cmd "/bin/bash"))
-    (if is-term
-        (ansi-term term-cmd)
-      (if (get-buffer "*ansi-term*")
-          (if (term-check-proc "*ansi-term*")
-              (switch-to-buffer "*ansi-term*")
-            (ansi-term term-cmd))
-        (ansi-term term-cmd))))
-  (term-set-escape-char ?\C-c))
-(global-set-key (kbd "<f4>") 'visit-ansi-term)
-;; (define-key global-map [f4] (lambda ()
-;;   (interactive nil)
-;;   (ansi-term "/bin/bash")
-;;   ;;(term-line-mode)
-;; ))
 
+(require 'sane-term)
+(defun my-sane-term (arg)
+  (interactive "P")
+  (if arg
+      (sane-term-create)
+    (sane-term)))
+(global-set-key (kbd "<f4>") 'my-sane-term)
+
+;; misc
 
 (global-set-key "\M-k" 'kill-whole-line)
 
