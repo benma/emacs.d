@@ -11,6 +11,9 @@
   '(hayoo
     visual-regexp
     visual-regexp-steroids
+    sane-term
+    go-mode
+    fill-column-indicator
     expand-region 
     ggtags
     ace-jump-mode 
