@@ -278,7 +278,10 @@
 
 ;; find password in ~/.authinfo
 (setq erc-prompt-for-password nil)
-
+;; logging
+(setq erc-log-channels-directory "~/.erc/logs/")
+(setq erc-save-buffer-on-part t)
+;; notification
 (add-to-list 'erc-modules 'notifications)
 ;; enable channel autojoin
 (require 'erc-join)
