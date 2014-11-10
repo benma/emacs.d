@@ -39,6 +39,7 @@
     projectile
     flx-ido
     grep-a-lot
+    cmake-mode
     tern
     tern-auto-complete)
   "A list of packages to ensure are installed at launch.")
