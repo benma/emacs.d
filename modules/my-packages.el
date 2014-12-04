@@ -13,6 +13,7 @@
     visual-regexp-steroids
     sane-term
     go-mode
+    go-autocomplete
     fill-column-indicator
     expand-region 
     ggtags
@@ -25,7 +26,8 @@
     auto-complete 
     yasnippet 
     undo-tree 
-    dired+ 
+    dired+
+    markdown-mode
     ack-and-a-half 
     deft 
     volatile-highlights 
