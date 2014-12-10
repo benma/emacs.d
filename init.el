@@ -153,6 +153,10 @@
 (require 'go-mode)
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'go-mode-hook (lambda ()
+                          ;; show col 100 visually
+                          (setq fill-column 100)
+                          (fci-mode)))
 
 ;; CG
 (require 'cg-mode)
