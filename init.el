@@ -8,7 +8,7 @@
 (add-to-list 'custom-theme-load-path (concat my-root-dir "themes/"))
 
 (setenv "PATH" (concat "~/bin" (getenv "PATH")))
-(add-to-list 'exec-path "~/bin")
+(add-to-list 'exec-path (getenv "PATH"))
 
 
 (require 'cl)
@@ -75,7 +75,7 @@
 ;;(require 'my-latex)
 
 ;; magit
-;; (add-to-list 'load-path (concat my-vendor-dir "magit/"))
+(setq magit-last-seen-setup-instructions "1.4.0")
 (global-set-key "\C-c\g" 'magit-status)
 ;; full screen magit-status
 (require 'magit)
@@ -291,7 +291,7 @@
 (require 'erc-join)
 (erc-autojoin-enable)
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#monetas-dev" "#opentransactions")))
+      '(("freenode.net" "#monetas-dev" "#haskell")))
 
 ;; rectangle editing
 (require 'rect-mark)

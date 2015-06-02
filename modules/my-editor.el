@@ -3,6 +3,7 @@
 (tool-bar-mode -1) ;; to tool bar
 (setq inhibit-splash-screen t) ;; no welcome screen
 (setq bookmark-save-flag 1) ;; save bookmarks on each set/delete
+(setq ring-bell-function 'ignore) ;; no alarm bell
 (setq scroll-step 1)
 (defalias 'yes-or-no-p 'y-or-n-p) ;; short yes-or-now answers
 

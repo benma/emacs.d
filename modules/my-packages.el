@@ -28,7 +28,7 @@
     undo-tree 
     dired+
     markdown-mode
-    ack-and-a-half 
+    ag
     deft 
     volatile-highlights 
     magit
