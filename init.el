@@ -1,3 +1,10 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq my-root-dir (file-name-directory user-init-file))
 (setq my-modules-dir (concat my-root-dir "modules/"))
 (setq my-vendor-dir (concat my-root-dir "vendor/"))
@@ -105,10 +112,9 @@
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
-;; ack
-(require 'ack-and-a-half)
-(setq ack-and-a-half-prompt-for-directory t)
-(global-set-key (kbd "<f8>") 'ack-and-a-half)
+;; ag
+(require 'ag)
+(global-set-key (kbd "<f8>") 'ag-regexp)
 
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)
