@@ -299,6 +299,9 @@
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#monetas-dev" "#haskell")))
 
+;; rcirc
+(require 'my-rcirc)
+
 ;; rectangle editing
 (require 'rect-mark)
 ;; (global-set-key (kbd "C-t") 'rm-set-mark)

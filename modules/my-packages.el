@@ -43,7 +43,9 @@
     grep-a-lot
     cmake-mode
     tern
-    tern-auto-complete)
+    tern-auto-complete
+    rcirc-color
+    rcirc-notify)
   "A list of packages to ensure are installed at launch.")
 
 
