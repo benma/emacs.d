@@ -1,8 +1,8 @@
 (require 'package)
-(require 'melpa)
+;; (require 'melpa)
 
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
