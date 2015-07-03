@@ -32,8 +32,9 @@
 (setq tramp-auto-save-directory temporary-file-directory)
 
 ;; theme
-(load-theme 'zenburn)
-(load-theme 'zenburn-modeline-fix)
+;; (load-theme 'zenburn)
+;; (load-theme 'zenburn-modeline-fix)
+(load-theme 'adwaita)
 ;;(set-face-attribute 'default nil :height 80) ;; 10pt instead of default 12pt.
 
 (provide 'my-editor)
