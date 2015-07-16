@@ -2,6 +2,7 @@
 
 (require 'rcirc-notify)
 (rcirc-notify-add-hooks)
+(setq my-rcirc--keywords (list "goats!"))
 
 (require 'rcirc-color)
 (setq rcirc-color-is-deterministic t)
@@ -26,5 +27,22 @@
                           ;; Get password from gnome-keyring.
                           ,(secrets-get-secret "Login" "IRC Freenode")))))
 
+
+(defun my-rcirc--notify-keywords (proc sender response target text)
+  "Notify the current user when someone sends a message that
+matches a keyword."
+  (interactive)
+  (when (and (not (string= (rcirc-nick proc) sender))
+             (not (string= (rcirc-server-name proc) sender))
+             (rcirc-channel-p target)
+             (rcirc-notify-allowed sender))
+    (let ((keyword (catch 'match
+                     (dolist (key my-rcirc--keywords)
+                       (when (string-match key text)
+                         (throw 'match key))))))
+      (when keyword
+        (rcirc-notify-keyword sender keyword text)))))
+
+(add-hook 'rcirc-print-hooks 'my-rcirc--notify-keywords)
 
 (provide 'my-rcirc)
