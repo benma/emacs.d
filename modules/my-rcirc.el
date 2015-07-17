@@ -7,6 +7,9 @@
 (require 'rcirc-color)
 (setq rcirc-color-is-deterministic t)
 
+;; Smaller server messages.
+(set-face-attribute 'rcirc-server nil :foreground "Firebrick" :height 0.6)
+
 (add-hook 'rcirc-mode-hook
           (lambda ()
             (auto-complete-mode -1)))
