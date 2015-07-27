@@ -14,6 +14,7 @@
     sane-term
     go-mode
     go-autocomplete
+    go-dlv
     fill-column-indicator
     expand-region 
     ggtags
