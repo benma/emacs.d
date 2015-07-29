@@ -98,6 +98,9 @@
   (jump-to-register :magit-fullscreen))
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
+(setq magit-branch-read-upstream-first nil)
+(setq magit-branch-arguments nil)
+
 ;; gnuplot
 (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
 (add-hook 'gnuplot-mode-hook (lambda ()
