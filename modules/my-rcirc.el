@@ -7,6 +7,8 @@
 (require 'rcirc-color)
 (setq rcirc-color-is-deterministic t)
 
+(require 'rcirc-styles)
+
 ;; Smaller server messages.
 (set-face-attribute 'rcirc-server nil :foreground "Firebrick" :height 0.6)
 
@@ -20,7 +22,7 @@
            :nick "benma" :user-name "benma"
            :channels ("#haskell" "#emacs"))
           ("irc.monetas.io" :port 6697 :encryption tls
-           :nick "benma" :user-name "marko"
+           :nick "benma" :user-name "mbencun"
              ;; Get password from gnome-keyring.
            :password ,(secrets-get-secret "Login" "monetas ldap")
            :channels ("#monetas-dev" "#monetas"))

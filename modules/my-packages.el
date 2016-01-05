@@ -46,6 +46,7 @@
     tern
     tern-auto-complete
     rcirc-color
+    rcirc-styles
     rcirc-notify)
   "A list of packages to ensure are installed at launch.")
 
