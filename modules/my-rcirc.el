@@ -50,4 +50,29 @@ matches a keyword."
 
 (add-hook 'rcirc-print-hooks 'my-rcirc--notify-keywords)
 
+(defun my-rcirc-format ()
+  (interactive)
+  (let* ((choices (union
+                   rcirc-styles-attribute-alist
+                   '(("\C-c0" . white)
+                     ("\C-c1" . black)
+                     ("\C-c2" . blue)
+                     ("\C-c3" . green)
+                     ("\C-c4" . red)
+                     ("\C-c5" . brown)
+                     ("\C-c6" . purple)
+                     ("\C-c7" . orange)
+                     ("\C-c8" . yellow)
+                     ("\C-c9" . lightgreen)
+                     ("\C-c10" . cyan)
+                     ("\C-c11" . lightcyan)
+                     ("\C-c12" . lightblue)
+                     ("\C-c13" . pink)
+                     ("\C-c14" . gray)
+                     ("\C-c15" . lightgray)
+                   )))
+         (default 'bold)
+         (choice (intern (completing-read "format: " (mapcar 'symbol-name (mapcar 'cdr choices)) nil t nil nil default))))
+    (insert-string (car (rassoc choice choices)))))
+
 (provide 'my-rcirc)
