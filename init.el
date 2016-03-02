@@ -161,6 +161,7 @@
 ;; go-mode
 (require 'go-mode)
 (setq gofmt-command "goimports")
+(setq gofmt-is-goimports t)
 (add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook (lambda ()
                           ;; show col 100 visually
