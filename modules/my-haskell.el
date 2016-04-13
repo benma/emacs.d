@@ -9,12 +9,17 @@
 (add-to-list 'exec-path "~/.cabal/bin")
 
 (load "haskell-mode-autoloads.el")
-(add-hook 'haskell-mode-hook (lambda ()			       
-;;			       (subword-mode +1)
-			       (turn-on-haskell-doc-mode)
-			       (turn-on-haskell-indentation)
-			       ;;(structured-haskell-mode)
-			       (ghc-init)))
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            ;;(subword-mode +1)
+            (turn-on-haskell-doc-mode)
+            (turn-on-haskell-indentation)
+            ;;(structured-haskell-mode)
+            (setq tab-width 4
+                  haskell-indentation-layout-offset 4
+                  haskell-indentation-left-offset 4
+                  haskell-indentation-ifte-offset 4)
+            (ghc-init)))
 
 (require 'company)
 ;;(add-hook 'haskell-mode-hook 'company-mode)
@@ -26,8 +31,7 @@
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
- '(haskell-process-type 'cabal-repl))
-
+ '(haskell-process-type 'stack-ghci))
 
 (eval-after-load "haskell-mode"
   '(progn
