@@ -50,7 +50,6 @@
     rcirc-notify)
   "A list of packages to ensure are installed at launch.")
 
-
 (defun my-packages-installed-p ()
   (loop for p in my-packages
         when (not (package-installed-p p)) do (return nil)

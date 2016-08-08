@@ -306,9 +306,6 @@
 ;; rcirc
 (require 'my-rcirc)
 
-;; hipchat
-(require 'my-hipchat)
-
 ;; rectangle editing
 (require 'rect-mark)
 ;; (global-set-key (kbd "C-t") 'rm-set-mark)
