@@ -362,6 +362,16 @@
 
 (require 'my-visual-regexp)
 
+;; browse-at-remote
+(require 'browse-at-remote)
+(add-to-list 'browse-at-remote-remote-type-domains '("bitbucket.monetas.io" ."monetas"))
+(defun browse-at-remote--format-region-url-as-monetas (repo-url location filename &optional linestart _lineend)
+  "URL formatted for bitbucket"
+  (let* ((repo (if (string= (substring repo-url -3) "got") "gotary" "jarlie"))
+        (revision (vc-git-working-revision (buffer-file-name)))
+        (url (format "https://bitbucket.monetas.io/projects/GOT/repos/%s/browse/%s?at=%s" repo filename revision)))
+    (if linestart (format "%s#%d" url linestart) url)))
+
 ;;;; Keybindings
 
 ;; multiple-cursors
