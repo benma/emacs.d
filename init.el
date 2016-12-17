@@ -419,6 +419,7 @@
 ;; misc
 
 (global-set-key "\M-k" 'kill-whole-line)
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 (defun whack-whitespace ()
   "Delete all white space from point to the next word."
