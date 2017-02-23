@@ -49,7 +49,7 @@
 
 ;; c, c++
 (require 'cc-mode)
-(c-add-style "my-c-style" 
+(c-add-style "my-c-style"
 	     '("gnu"
 	       (indent-tabs-mode . nil)        ; use spaces rather than tabs
 	       (c-basic-offset . 4)            ; indent by four spaces
@@ -123,7 +123,7 @@
 (require 'grep-a-lot)
 (grep-a-lot-setup-keys)
 (require 'ack-and-a-half-a-lot)
-  
+
 ;; we don't want to start in root directoy by default,
 ;; but in directory of current file
 ;; todo: make two bindings, one with default directory=root directory and
@@ -191,7 +191,7 @@
 (add-hook 'python-mode-hook (lambda ()
 			      ;; "_" is a delimiter in words (when moving C-left/right
 			      ;; (modify-syntax-entry ?_ "_" py-mode-syntax-table)
-			      
+
 			      ;; disable electric indent mode, it indents the wrong line in python mode
 			      (electric-indent-mode -1)))
 
@@ -219,16 +219,16 @@
 ;; in terminal, when TERM=screen-256color, shift-(left|right|...) etc. do not work. bind them explicitely:
 (defadvice terminal-init-screen(around map-S-escape-sequences activate)
   ;; defadvice needed so that it also works with emacsclient.
-  (define-key input-decode-map "\e[1;2D" [S-left])  
-  (define-key input-decode-map "\e[1;2C" [S-right])  
-  (define-key input-decode-map "\e[1;2B" [S-down])  
-  (define-key input-decode-map "\e[1;2A" [S-up])  
-  (define-key input-decode-map "\e[1;2F" [S-end])  
+  (define-key input-decode-map "\e[1;2D" [S-left])
+  (define-key input-decode-map "\e[1;2C" [S-right])
+  (define-key input-decode-map "\e[1;2B" [S-down])
+  (define-key input-decode-map "\e[1;2A" [S-up])
+  (define-key input-decode-map "\e[1;2F" [S-end])
   (define-key input-decode-map "\e[1;2H" [S-home])
-  (define-key input-decode-map "\e[1;5D" [C-left])  
-  (define-key input-decode-map "\e[1;5C" [C-right])  
-  (define-key input-decode-map "\e[1;5B" [C-down])  
-  (define-key input-decode-map "\e[1;5A" [C-up])  
+  (define-key input-decode-map "\e[1;5D" [C-left])
+  (define-key input-decode-map "\e[1;5C" [C-right])
+  (define-key input-decode-map "\e[1;5B" [C-down])
+  (define-key input-decode-map "\e[1;5A" [C-up])
   ad-do-it
   )
 ;; same for some keys when TERM=xterm-256color
@@ -314,7 +314,7 @@
 (global-set-key (kbd "C-x r M-w") 'rm-kill-ring-save)
 
 ;; ;; cua-mode only for rectangle editing
-;; (setq cua-enable-cua-keys nil) ;; ctrl-enter -> rectangle editing, 
+;; (setq cua-enable-cua-keys nil) ;; ctrl-enter -> rectangle editing,
 ;; ;;(setq cua-highlight-region-shift-only t) ;; no transient mark mode
 ;; ;;(setq cua-toggle-set-mark nil) ;; original set-mark behavior, i.e. no transient-mark-mode
 ;; (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
@@ -335,7 +335,7 @@
 (ido-everywhere 1)
 ;;(flx-ido-mode 1)
 
-;; go straight home by pressing ~ 
+;; go straight home by pressing ~
 (add-hook 'ido-setup-hook (lambda ()
 			    (define-key ido-file-completion-map
 			      (kbd "~")
@@ -381,7 +381,7 @@
 (global-set-key (kbd "M-S-<down>") 'mc/mark-next-like-this)
 
 ;; use C-y in search to yank last killed text into the minibuffer
-(add-hook 'isearch-mode-hook 
+(add-hook 'isearch-mode-hook
 	  (lambda ()
 	    (define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
 	    (define-key isearch-mode-map (kbd "C-y") 'isearch-yank-kill)))
@@ -418,7 +418,7 @@
 (global-set-key (kbd "<f4>") 'my-sane-term)
 
 ;; misc
-
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-set-key "\M-k" 'kill-whole-line)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
@@ -441,4 +441,3 @@
     (if (file-exists-p manage-file)
 	(pdb (concat manage-file " runserver --noreload"))
       (error "You are not in a Django project"))))
-
