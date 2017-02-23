@@ -40,11 +40,12 @@
 (setq fci-rule-color "red")
 
 ;; ggtags (gnu global)
+(eval-after-load 'ggtags
+  (setq ggtags-enable-navigation-keys nil))
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-              (ggtags-mode 1)
-              (ggtags-navigation-mode -1))))
+              (ggtags-mode 1))))
 
 ;; c, c++
 (require 'cc-mode)
