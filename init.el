@@ -173,6 +173,8 @@
 (require 'cg-mode)
 
 ;; dired+
+;; https://emacs.stackexchange.com/questions/33842/dired-hangs-emacs-in-no-window-mode
+(setq diredp-bind-problematic-terminal-keys nil)
 (require 'dired+)
 
 ;; dired

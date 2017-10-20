@@ -16,27 +16,27 @@
     go-autocomplete
     go-dlv
     fill-column-indicator
-    expand-region 
+    expand-region
     ggtags
-    ace-jump-mode 
+    ace-jump-mode
     haskell-mode ghc shm company-ghc
     key-chord
     zenburn-theme
     evil
-    linum 
-    auto-complete 
-    yasnippet 
-    undo-tree 
+    linum
+    auto-complete
+    yasnippet
+    undo-tree
     dired+
     markdown-mode
     ag
-    deft 
-    volatile-highlights 
+    deft
+    volatile-highlights
     magit
     git-link
-    gnuplot 
-    smex 
-    back-button 
+    gnuplot
+    smex
+    back-button
     xclip
     multiple-cursors
     projectile
