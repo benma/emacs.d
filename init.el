@@ -62,6 +62,13 @@
                          (setq fill-column 80)
                          (fci-mode)))
 
+;; js
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
+
 ;; w3m
 
 (eval-after-load 'w3m
@@ -133,13 +140,6 @@
 (setq ack-and-a-half-arguments '("--ignore-dir migrations"))
 (global-set-key (kbd "<f9>") 'next-error)
 (global-set-key (kbd "S-<f9>") 'previous-error)
-
-;; tern / js
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
-(eval-after-load 'tern
-  '(progn
-     (require 'tern-auto-complete)
-     (tern-ac-setup)))
 
 ;; expand-region
 (require 'expand-region)

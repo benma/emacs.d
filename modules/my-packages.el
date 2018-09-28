@@ -49,7 +49,8 @@
     rcirc-styles
     rcirc-notify
     browse-at-remote
-    go-playground)
+    go-playground
+    web-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()
