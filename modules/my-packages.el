@@ -50,7 +50,8 @@
     rcirc-notify
     browse-at-remote
     go-playground
-    web-mode)
+    web-mode
+    hydra)
   "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()

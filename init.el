@@ -54,9 +54,15 @@
 	       (indent-tabs-mode . nil)        ; use spaces rather than tabs
 	       (c-basic-offset . 4)            ; indent by four spaces
 	       (c-offsets-alist . ((inline-open . 0)  ; custom indentation rules
-				   (brace-list-open . 0)
+                               (brace-list-open . 0)
+                               (arglist-intro . 4)
 				   (statement-case-open . +)))))
 (add-hook 'c++-mode-hook (lambda ()
+                         (c-set-style "my-c-style")
+                         ;; show col 80 visually
+                         (setq fill-column 80)
+                         (fci-mode)))
+(add-hook 'c-mode-hook (lambda ()
                          (c-set-style "my-c-style")
                          ;; show col 80 visually
                          (setq fill-column 80)
@@ -99,12 +105,9 @@
   ad-do-it
   (delete-other-windows))
 
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (magit-mode-quit-window)
-  (jump-to-register :magit-fullscreen))
-(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+(define-key transient-map        "q" 'transient-quit-one)
+(define-key transient-edit-map   "q" 'transient-quit-one)
+(define-key transient-sticky-map "q" 'transient-quit-seq)
 
 (setq magit-branch-read-upstream-first nil)
 (setq magit-branch-arguments nil)
@@ -336,6 +339,9 @@
 ;; projects
 (require 'my-projects)
 
+;; hydra
+(require 'my-hydra)
+
 ;; interactive buffers/files
 (ido-mode)
 (ido-everywhere 1)
@@ -362,6 +368,7 @@
 
 ;; undo-tree (use C-x u to visualize, C-_ to undo, M-_ to redo)
 (require 'undo-tree)
+(setq undo-tree-enable-undo-in-region nil)
 (global-undo-tree-mode)
 
 (require 'back-button)
