@@ -1,19 +1,26 @@
 (require 'my-projects)
 (require 'hydra)
 
-(defhydra hydra-compilation-firmware_v2-jlink (:exit t)
+(defhydra hydra-compilation-bitbox02-firmware-jlink (:exit t)
   "jlink"
-  ("f" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make firmware && make jlink-flash-firmware") "jlink firmware")
-  ("b" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make bootloader && make jlink-flash-bootloader") "jlink bootloader"))
+  ("f" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make -j firmware && make jlink-flash-firmware") "jlink firmware")
+  ("b" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make -j bootloader && make jlink-flash-bootloader") "jlink bootloader")
+  ("d" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make -j bootloader-devdevice && make jlink-flash-bootloader") "jlink bootloader devdevice"))
 
-(defhydra hydra-compilation-firmware_v2 (:exit t)
-  "firmware_v2"
+(defhydra hydra-compilation-bitbox02-firmware-other (:exit t)
+  "other"
+  ("f" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh ./scripts/format") "format"))
+
+(defhydra hydra-compilation-bitbox02-firmware (:exit t)
+  "bitbox02-firmware"
   ("c" (projectile-compile-project t) "compile")
-  ("F" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make firmware") "firmware")
-  ("f" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make firmware && make flash-dev-firmware") "firmware/flash")
-  ("b" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make bootloader") "bootloader")
-  ("t" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make run-unit-tests") "unit tests")
-  ("j" (hydra-compilation-firmware_v2-jlink/body) "jlink"))
+  ("F" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make -j firmware") "firmware")
+  ("f" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make -j firmware && make flash-dev-firmware") "firmware/flash")
+  ("b" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make -j bootloader") "bootloader")
+  ("d" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh make -j bootloader-devdevice") "bootloaderd devdevice")
+  ("t" (project-compilation-cmd-noninteractive "./scripts/docker_exec.sh 'make -j unit-test && make run-unit-tests'") "unit tests")
+  ("j" (hydra-compilation-bitbox02-firmware-jlink/body) "jlink")
+  ("o" (hydra-compilation-bitbox02-firmware-other/body) "other"))
 
 (defhydra hydra-compilation-bitbox-wallet-app-locize (:exit t)
   "locize"

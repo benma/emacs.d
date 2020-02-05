@@ -51,7 +51,13 @@
     browse-at-remote
     go-playground
     web-mode
-    hydra)
+    hydra
+    clang-format
+    company
+    company-tabnine
+    ;;lsp-mode
+    ;;company-lsp
+    )
   "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()

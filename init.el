@@ -60,13 +60,16 @@
 (add-hook 'c++-mode-hook (lambda ()
                          (c-set-style "my-c-style")
                          ;; show col 80 visually
-                         (setq fill-column 80)
+                         (setq fill-column 100)
                          (fci-mode)))
 (add-hook 'c-mode-hook (lambda ()
                          (c-set-style "my-c-style")
                          ;; show col 80 visually
-                         (setq fill-column 80)
+                         (setq fill-column 100)
                          (fci-mode)))
+
+(require 'clang-format)
+(global-set-key (kbd "C-c f") 'clang-format-region)
 
 ;; js
 (require 'web-mode)
@@ -96,22 +99,7 @@
 ;;(require 'my-latex)
 
 ;; magit
-(setq magit-last-seen-setup-instructions "1.4.0")
-(global-set-key "\C-c\g" 'magit-status)
-;; full screen magit-status
-(require 'magit)
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
-
-(define-key transient-map        "q" 'transient-quit-one)
-(define-key transient-edit-map   "q" 'transient-quit-one)
-(define-key transient-sticky-map "q" 'transient-quit-seq)
-
-(setq magit-branch-read-upstream-first nil)
-(setq magit-branch-arguments nil)
-
+(require 'my-magit)
 ;; gnuplot
 (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
 (add-hook 'gnuplot-mode-hook (lambda ()
@@ -175,6 +163,28 @@
                           ;; show col 100 visually
                           (setq fill-column 100)
                           (fci-mode)))
+
+;; company-mode
+(setq company-idle-delay 0)
+(setq company-show-numbers t)
+(add-hook 'after-init-hook 'global-company-mode)
+;; (require 'company-tabnine)
+;; (add-to-list 'company-backends #'company-tabnine)
+
+
+;; workaround for distorted popup when fci-mode is enabled:
+;; https://github.com/company-mode/company-mode/issues/180#issuecomment-55047120
+(defvar-local company-fci-mode-on-p nil)
+(defun company-turn-off-fci (&rest ignore)
+  (when (boundp 'fci-mode)
+    (setq company-fci-mode-on-p fci-mode)
+    (when fci-mode (fci-mode -1))))
+(defun company-maybe-turn-on-fci (&rest ignore)
+  (when company-fci-mode-on-p (fci-mode 1)))
+(add-hook 'company-completion-started-hook 'company-turn-off-fci)
+(add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
+(add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
+
 
 ;; CG
 (require 'cg-mode)
@@ -273,9 +283,10 @@
 (yas/global-mode 1)
 
 ;; auto-complete
-(require 'auto-complete-config)
-(setq ac-auto-show-menu 0.0)
-(global-auto-complete-mode t)
+;; (require 'auto-complete-config)
+;; (setq ac-auto-show-menu 0.0)
+;; (global-auto-complete-mode t)
+
 ;; define sources
 ;; ac-source-yasnippet is broken. until it is fixed, use simple configuration
 (setq-default ac-sources '(ac-source-dictionary ac-source-words-in-same-mode-buffers))
@@ -288,10 +299,9 @@
 ;; dirty fix for having AC everywhere
 (define-globalized-minor-mode real-global-auto-complete-mode
   auto-complete-mode (lambda ()
-		       (if (not (minibufferp (current-buffer)))
-			   (auto-complete-mode 1))
-		       ))
-(real-global-auto-complete-mode t)
+                       (if (not (minibufferp (current-buffer)))
+                           (auto-complete-mode 1))))
+;;(real-global-auto-complete-mode t)
 
 ;; erc
 (require 'erc)
@@ -454,3 +464,10 @@
     (if (file-exists-p manage-file)
 	(pdb (concat manage-file " runserver --noreload"))
       (error "You are not in a Django project"))))
+
+;; LSP
+;; (require 'lsp-mode)
+;; (add-hook 'go-mode-hook #'lsp-deferred)
+;; (add-hook 'rust-mode-hook #'lsp-deferred)
+;; (require 'company-lsp)
+;; (push 'company-lsp company-backends)
